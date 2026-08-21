@@ -1,0 +1,10 @@
+TVPlayout 12.9 - Modern UI integrated
+
+- Removed external AdminLTE CDN dependency.
+- Kept all existing backend routes, database, OBS, scanner and AJAX logic.
+- Modern dark dashboard shell with fixed sidebar.
+- Scheduler and tables redesigned.
+- Media Pool changed to compact list instead of large cards.
+- Existing pagination/search/AJAX remain intact.
+- No FFmpeg, database or virtual environment included in source-only package.
+- Backups: templates/index.html.bak_visual and static/style.css.bak_visual

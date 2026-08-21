@@ -1,0 +1,9 @@
+TVPlayout 12.9 TITLE OVERLAY UPDATE
+
+- OBS scene/source lists can now be refreshed without restarting TVPlayout.
+- Added periodic title overlay using OBS Text (GDI+) source.
+- Default: every 15 minutes for 8 seconds. Set interval to 0 for permanent display.
+- Default wrapping: 20 characters per line, respecting complete words.
+- Example: Atrapando a un Monstruo -> Atrapando a un\nMonstruo
+- Overlay updates text/visibility only; it does NOT reload the HLS/TS movie source.
+- Commercials hide the title unless enabled.

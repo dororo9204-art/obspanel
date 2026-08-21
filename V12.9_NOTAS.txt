@@ -1,0 +1,14 @@
+V12.9 - UI + LIVE TRACK + SQLITE
+
+- Media Pool: fixed missing escapeHtml that prevented AJAX list rendering.
+- Playout now includes a 20-item Media Pool with Programar / Tomar / Pistas.
+- Scheduler uses AJAX, 20 rows per page, date filter and search.
+- Full date + HH:MM:SS displayed.
+- Playout has live audio/subtitle editor for current event.
+- Saving a future event never touches OBS.
+- Live track change prepares variant first and performs one restart, no explicit STOP.
+- Scanner commits in small batches and closes SQLite between batches.
+- Internal and external subtitle tracks are mapped by FFmpeg.
+- AdminLTE 4 CSS is loaded for the admin UI shell.
+
+IMPORTANT: OBS Media Source does not render subtitle streams as visible captions by itself. If you need subtitles burned into the picture, that is a separate FFmpeg filter pipeline and requires video re-encoding.

@@ -1,0 +1,18 @@
+TVPlayout 12.9 - TITULO OBS + IMDb
+
+1) Título automático:
+   - Limpia nombres como "Avatar 2026" -> "Avatar".
+   - Actualiza una fuente Text de OBS al iniciar cada evento.
+   - No toca la fuente Media Source del playout.
+   - Puede ocultarse durante COMMERCIAL.
+
+2) IMDb:
+   - La base queda preparada para guardar imdb_id, imdb_title e imdb_year.
+   - La API oficial de IMDb actualmente usa GraphQL/AWS Data Exchange.
+   - Para la integración oficial se necesita API key y las credenciales AWS de la suscripción, según la documentación de IMDb.
+   - NO pongas la API key en el código fuente. Se configurará en config.json/.env en la siguiente etapa.
+
+3) Comerciales:
+   - El scheduler manual COMMERCIAL ya existe.
+   - La configuración "Auto anuncios aleatorios" existente todavía no constituye por sí sola una tanda automática insertada en la programación.
+   - La siguiente etapa debe implementar el motor de tandas: aleatorio/programado, duración objetivo, no repetir, y preservación de la hora de inicio de las películas.

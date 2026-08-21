@@ -1,0 +1,14 @@
+TVPlayout 12.9 PRO - RECOVERY SEEK FIX
+
+Problema corregido:
+- Si una pelicula ya estaba en curso cuando TVPlayout arrancaba o se reconectaba,
+  el motor podia llamar a play_row(..., resume_ms=0) y OBS recibia la pelicula desde 00:00.
+
+Cambios:
+- El engine calcula siempre el tiempo transcurrido desde schedule.start_at antes de
+  cargar un evento que ya esta en curso.
+- Si el evento lleva 44 minutos, HLS se inicia aproximadamente en 44:00.
+- FFmpeg usa seek rapido antes de abrir el archivo.
+- Se normalizan los timestamps de salida con avoid_negative_ts=make_zero para que
+  OBS no interprete el timestamp original del MKV como posicion de reproduccion.
+- Se mantiene el cache HLS/TS circular; no se copia la pelicula completa.

@@ -1,0 +1,14 @@
+TVPlayout 12.9 PRO - PLAYOUT / SCHEDULER PATCH
+
+Cambios:
+- NEXT se calcula continuamente incluso mientras hay una película ON AIR.
+- Se muestran los próximos 5 eventos en el Playout.
+- Nuevo panel Control Room con progreso, posición, duración y tiempo restante.
+- Cambio de audio/subtítulos en vivo desde el panel ON AIR.
+- Scheduler: LIMPIAR SEMANA y LIMPIAR MES.
+- Las limpiezas NO eliminan la película del Media Pool.
+- Los eventos que estén actualmente en estado playing se conservan para no interrumpir el aire.
+- API /api/playout para actualizar el Control Room sin recargar la página.
+- La generación semanal/mensual continúa ejecutándose en segundo plano.
+- No se modifica tvplayout.db automáticamente.
+- No incluye FFmpeg.

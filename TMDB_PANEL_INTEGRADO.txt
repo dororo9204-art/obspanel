@@ -1,0 +1,43 @@
+TVPlayout 12.9 - TMDB INTEGRADO AL PANEL
+========================================
+
+Arranque:
+  python app.py
+
+No se ejecuta ningún script adicional para TMDB.
+
+Panel:
+  http://127.0.0.1:8088/?tab=tmdb
+
+1. Pega la TMDB API Key en el campo API Key.
+2. Marca "Activar integración TMDB".
+3. Guarda.
+4. Pulsa "ENRIQUECER PENDIENTES".
+
+Opcional:
+- "Enriquecer automáticamente nuevos medios" procesa nuevos archivos en segundo plano.
+- "Reintentar errores" vuelve a poner errores en cola.
+
+La cola trabaja de uno en uno y nunca bloquea el panel, el escáner ni el motor HLS.
+Los posters/logos/backdrops se guardan localmente en:
+  data\tmdb\posters
+  data\tmdb\logos
+  data\tmdb\backdrops
+
+Titulador:
+  Configuración > Título / Lower automático
+  Modo recomendado: NATIVO OBS / GDI+
+  Text (GDI+) = título
+  Image Source = poster
+  Image Source = logo (opcional)
+
+El año se guarda en TMDB pero no se muestra.
+
+La reproducción HLS/TS y Recovery Seek no fueron sustituidos.
+
+V13.0 FINAL TMDB:
+- TMDB se procesa en segundo plano automáticamente cuando está habilitado.
+- Cache local: cache/tmdb/{metadata,posters,logos,backdrops}.
+- El playout nunca consulta TMDB durante la emisión.
+- El poster tiene ancho/alto/X/Y configurables desde Titulador OBS.
+- El titulador usa GDI+ por defecto.

@@ -1,0 +1,3 @@
+IMPORTANTE: Esta version NO incluye una base de datos para evitar sobrescribir la tuya.
+Copia tu tvplayout.db existente a esta carpeta ANTES de iniciar.
+Si no existe, TVPlayout creara una base nueva.

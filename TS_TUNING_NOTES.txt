@@ -1,0 +1,12 @@
+TVPlayout 12.9 PRO - TS/HLS tuning
+
+HLS:
+  Segment: 2 seconds
+  Playlist: 15 segments (~30 seconds)
+  Retention: 20 segments (~40 seconds)
+
+OBS Multimedia source:
+  Buffering de red: 8 MB
+  Retraso de reconexion: 2 segundos
+
+The OBS 10-second value is reconnect delay, not video latency.

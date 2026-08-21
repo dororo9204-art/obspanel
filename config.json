@@ -1,0 +1,71 @@
+{
+  "host": "127.0.0.1",
+  "port": 8088,
+  "ffmpeg": "",
+  "ffprobe": "",
+  "obs": {
+    "host": "127.0.0.1",
+    "port": 4455,
+    "password": "lUUKpiavPqqJEF3s"
+  },
+  "channel": {
+    "name": "MOVIES HD",
+    "scene": "LIVE PROGRAM",
+    "source": "Multimedia"
+  },
+  "logo": {
+    "enabled": true,
+    "scene": "MOVIES",
+    "source": "logo",
+    "show_during_ads": true
+  },
+  "auto_ads": {
+    "enabled": false,
+    "interval_minutes": 60,
+    "break_seconds": 180,
+    "min_ads": 1,
+    "max_ads": 4,
+    "category": "Commercial",
+    "avoid_repeat": true
+  },
+  "scan": {
+    "interval": 60,
+    "auto_analyze": true
+  },
+  "recovery": {
+    "enabled": true,
+    "checkpoint_seconds": 2,
+    "auto_restart_obs": false,
+    "obs_exe": "C:\\Program Files\\obs-studio\\bin\\64bit\\obs64.exe",
+    "startup_wait_seconds": 8
+  },
+  "title_overlay": {
+    "enabled": true,
+    "scene": "Escena 2",
+    "source": "Texto (GDI+)",
+    "show_during_ads": false,
+    "interval_minutes": 1,
+    "show_seconds": 8,
+    "wrap_chars": 20,
+    "mode": "gdi",
+    "template": 1,
+    "color1": "#ffffff",
+    "color2": "#8000ff",
+    "poster_source": "poster tmdb",
+    "logo_source": "",
+    "poster_width": 180,
+    "poster_height": 260,
+    "poster_x": 80,
+    "poster_y": 820,
+    "poster_keep_ratio": true,
+    "poster_crop": false
+  },
+  "tmdb": {
+    "enabled": true,
+    "auto_enrich": false,
+    "api_key": "598ff32ac857d5ece9d1b988e27a4a62",
+    "language": "es-MX",
+    "region": "MX",
+    "last_error": ""
+  }
+}
