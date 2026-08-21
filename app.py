@@ -3,11 +3,11 @@ from pathlib import Path
 BACKEND = Path(__file__).with_name("app_backend.py")
 s = BACKEND.read_text(encoding="utf-8")
 
-# Repair the scheduler/TMDB block if it was committed with literal \\n
-# escape sequences. The malformed block is recognizable by the TMDB search
-# endpoint marker. Only perform this normalization when that marker exists.
-if r'\\n\\n@app.get("/api/tmdb/search")' in s:
-    s = s.replace(r'\\n', '\n')
+# Normalize a mistakenly escaped TMDB/Scheduler block before compiling.
+# The committed backend may contain literal characters "\\n" rather than
+# actual line breaks; converting them here keeps startup backward-compatible.
+if r"\n\n@app.get(\"/api/tmdb/search\")" in s:
+    s = s.replace(r"\n", "\n")
 
 code = compile(s, str(BACKEND), "exec")
 globals_dict = globals()
