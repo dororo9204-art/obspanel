@@ -1,4 +1,4 @@
-name: Fix TMDB worker startup
+name: Fix TMDB worker startup and Scheduler UI
 
 on:
   push:
@@ -15,17 +15,39 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Patch app.py
+      - name: Patch and validate app.py
         shell: python
         run: |
           from pathlib import Path
           p = Path('app.py')
           s = p.read_text(encoding='utf-8')
+
+          # Keep the TMDB startup fix idempotent.
           old = '''async def startup():\n init_db()\n normalize_existing_titles()\n ensure_recovery_row()\n cleanup_playback_cache(None)\n stop_hls_playback()\n asyncio.create_task(engine())'''
-          new = '''async def startup():\n global TMDB_TASK\n init_db()\n normalize_existing_titles()\n ensure_recovery_row()\n cleanup_playback_cache(None)\n stop_hls_playback()\n # TMDB worker must be started at application startup. Without this task,\n # /tmdb/run only sets an Event that no coroutine ever consumes, so no\n # search/download can occur.\n if TMDB_TASK is None or TMDB_TASK.done():\n  TMDB_TASK = asyncio.create_task(tmdb_worker())\n asyncio.create_task(engine())'''
-          if old not in s:
-              raise SystemExit('Expected startup block not found; refusing to modify app.py')
-          p.write_text(s.replace(old, new, 1), encoding='utf-8')
+          new = '''async def startup():\n global TMDB_TASK\n init_db()\n normalize_existing_titles()\n ensure_recovery_row()\n cleanup_playback_cache(None)\n stop_hls_playback()\n if TMDB_TASK is None or TMDB_TASK.done():\n  TMDB_TASK = asyncio.create_task(tmdb_worker())\n asyncio.create_task(engine())'''
+          if old in s:
+              s = s.replace(old, new, 1)
+
+          # The first Scheduler UI workflow inserted this endpoint block with
+          # literal backslash-n characters. Repair only that marked block.
+          start = s.find('\\n\\n@app.get("/api/tmdb/search")')
+          end = s.find('\\n@app.get("/api/media/{mid}")', start + 1) if start >= 0 else -1
+          if start >= 0 and end > start:
+              block = s[start:end].replace('\\n', '\n')
+              s = s[:start] + block + s[end:]
+
+          # Serve local TMDB assets to the browser/OBS.
+          imp = 'from fastapi.responses import HTMLResponse, RedirectResponse, JSONResponse'
+          if imp in s and 'from fastapi.responses import HTMLResponse, RedirectResponse, JSONResponse, FileResponse' not in s:
+              s = s.replace(imp, 'from fastapi.responses import HTMLResponse, RedirectResponse, JSONResponse, FileResponse', 1)
+          mount = 'app.mount("/static",StaticFiles(directory=str(BASE/"static")),name="static")'
+          if 'name="tmdb-cache"' not in s and mount in s:
+              s = s.replace(mount, mount + '\napp.mount("/tmdb-cache",StaticFiles(directory=str(BASE/"cache"/"tmdb")),name="tmdb-cache")', 1)
+
+          p.write_text(s, encoding='utf-8')
+
+      - name: Validate Python
+        run: python -m py_compile app.py
 
       - name: Commit fix
         run: |
@@ -33,5 +55,5 @@ jobs:
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add app.py
           git diff --cached --quiet && exit 0
-          git commit -m 'Fix TMDB worker startup [tmdb-worker-fixed]'
+          git commit -m 'Fix Scheduler backend [tmdb-worker-fixed]'
           git push
