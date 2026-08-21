@@ -1,0 +1,23 @@
+# Local/runtime files - never sync these
+.venv/
+__pycache__/
+*.pyc
+cache/
+tvplayout.db
+*.db-wal
+*.db-shm
+ffmpeg.exe
+ffplay.exe
+ffprobe.exe
+*.log
+.env
+
+# Local archives
+*.zip
+*.rar
+
+# OS/editor files
+Thumbs.db
+.DS_Store
+.vscode/
+.idea/
