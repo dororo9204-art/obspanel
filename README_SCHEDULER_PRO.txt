@@ -1,0 +1,1 @@
+Scheduler Pro UI and TMDB poster correction are included in the main branch.
