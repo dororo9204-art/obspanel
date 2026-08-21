@@ -1,5 +1,5 @@
 <!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>TVPlayout 12.9 PRO</title>
-<link rel="stylesheet" href="/static/style.css"></head><body>
+<link rel="stylesheet" href="/static/style.css"><link rel="stylesheet" href="/static/scheduler_pro.css"></head><body>
 <header><div class="brand"><div class="brandIcon">▶</div><div><h1>TVPlayout 12.9 <span class="proBadge">PRO</span></h1><span>24 HORAS · SUBTÍTULOS · RED · AUTOMATIZACIÓN</span></div></div><div class="status {{'ok' if obs.connected else 'bad'}}">OBS · {{'CONECTADO' if obs.connected else 'DESCONECTADO'}}</div></header>
 <nav><a class="{{'a' if tab=='playout' else ''}}" href="/?tab=playout">▶ PLAYOUT</a><a class="{{'a' if tab=='scheduler' else ''}}" href="/?tab=scheduler">📅 SCHEDULER</a><a class="{{'a' if tab=='library' else ''}}" href="/?tab=library">🎬 MEDIA POOL</a><a class="{{'a' if tab=='scanner' else ''}}" href="/?tab=scanner">📡 SCANNER</a><a class="{{'a' if tab=='tmdb' else ''}}" href="/?tab=tmdb">🎞️ TMDB</a><a class="{{'a' if tab=='subs' else ''}}" href="/?tab=subs">💬 SUBTÍTULOS</a><a class="{{'a' if tab=='logo' else ''}}" href="/?tab=logo">🏷️ LOGO</a><a class="{{'a' if tab=='ads' else ''}}" href="/?tab=ads">📢 AUTO ANUNCIOS</a><a class="{{'a' if tab=='settings' else ''}}" href="/?tab=settings">⚙️ SALIDA OBS</a><a class="{{'a' if tab=='recovery' else ''}}" href="/?tab=recovery">🛡️ RECOVERY</a></nav>
 <main><div id="liveNotice" class="notice" style="display:none">🔄 Cambio de audio/subtítulos aplicado al aire.</div>
@@ -377,7 +377,7 @@ async function refreshGeneration(){
 }
 if(window.TV_TAB==='scheduler'){refreshGeneration();setInterval(refreshGeneration,1000);}
 </script>
-</body></html>
+<script src="/static/scheduler_pro.js"></script></body></html>
 <script>
 (function(){
  const q=new URLSearchParams(location.search);
