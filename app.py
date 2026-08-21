@@ -1317,11 +1317,17 @@ async def engine():
 
 @app.on_event("startup")
 async def startup():
+ global TMDB_TASK
  init_db()
  normalize_existing_titles()
  ensure_recovery_row()
  cleanup_playback_cache(None)
  stop_hls_playback()
+ # TMDB worker must be started at application startup. Without this task,
+ # /tmdb/run only sets an Event that no coroutine ever consumes, so no
+ # search/download can occur.
+ if TMDB_TASK is None or TMDB_TASK.done():
+  TMDB_TASK = asyncio.create_task(tmdb_worker())
  asyncio.create_task(engine())
 
 @app.get("/",response_class=HTMLResponse)
